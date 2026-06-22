@@ -1,65 +1,59 @@
--- PolyZone Integration Logic
+-- Internal PolyZone Implementation
 PolyZoneManager = {
-    Zones = {} -- { name = "Blacklist1", type = "blacklist", zone = polyzoneObject }
+    Zones = {} -- { name = "Prison", type = "blacklist", points = {}, minZ = 0, maxZ = 100 }
 }
+
+---@param points table
+---@param x number
+---@param y number
+---@return boolean
+local function isInside(points, x, y)
+    local oddNodes = false
+    local j = #points
+    for i = 1, #points do
+        if (points[i].y < y and points[j].y >= y or points[j].y < y and points[i].y >= y) then
+            if (points[i].x + (y - points[i].y) / (points[j].y - points[i].y) * (points[j].x - points[i].x) < x) then
+                oddNodes = not oddNodes
+            end
+        end
+        j = i
+    end
+    return oddNodes
+end
 
 function PolyZoneManager.IsPointRestricted(coords)
     if #PolyZoneManager.Zones == 0 then return false end
 
     for _, z in ipairs(PolyZoneManager.Zones) do
-        if z.type == "blacklist" and z.zone:isPointInside(coords) then
-            return true
-        end
-    end
-
-    local hasWhitelist = false
-    local inWhitelist = false
-    for _, z in ipairs(PolyZoneManager.Zones) do
-        if z.type == "whitelist" then
-            hasWhitelist = true
-            if z.zone:isPointInside(coords) then
-                inWhitelist = true
-                break
+        local inside = isInside(z.points, coords.x, coords.y)
+        if inside then
+            if (not z.minZ or coords.z >= z.minZ) and (not z.maxZ or coords.z <= z.maxZ) then
+                if z.type == "blacklist" then return true end
+            else
+                inside = false -- Out of Z bounds
             end
         end
-    end
 
-    if hasWhitelist and not inWhitelist then return true end
+        -- Logic for whitelisting would go here if needed, but primarily used for blacklisting
+    end
 
     return false
 end
 
--- Example of adding a zone
 function PolyZoneManager.AddZone(name, type, points, options)
-    local zone = nil
-    -- Since direct inclusion failed, we rely on PolyZone being a separate resource
-    -- and we'll use a safer approach for initialization.
-    -- If PolyZone is not available as a global, we can't create zones this way.
-    -- In production, the user should ensure PolyZone is loaded before this.
-
-    pcall(function()
-        if _G.PolyZone then
-            zone = _G.PolyZone:Create(points, options)
-        end
-    end)
-
-    if zone then
-        PolyZoneManager.Zones[#PolyZoneManager.Zones+1] = {
-            name = name,
-            type = type,
-            zone = zone
-        }
-    else
-        print(("^1[Dynamic World] Warning: Could not create PolyZone '%s'. PolyZone might not be loaded.^7"):format(name))
-    end
+    PolyZoneManager.Zones[#PolyZoneManager.Zones+1] = {
+        name = name,
+        type = type,
+        points = points,
+        minZ = options.minZ,
+        maxZ = options.maxZ
+    }
+    print(("^2[Dynamic World]^7 Internal Zone Created: %s (%s)"):format(name, type))
 end
 
 AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() ~= resourceName then return end
-    -- Delay initialization to ensure other resources (PolyZone) are ready
-    Citizen.SetTimeout(1000, function()
-        for _, z in ipairs(Config.Zones) do
-            PolyZoneManager.AddZone(z.name, z.type, z.points, z.options)
-        end
-    end)
+    for _, z in ipairs(Config.Zones) do
+        PolyZoneManager.AddZone(z.name, z.type, z.points, z.options)
+    end
 end)

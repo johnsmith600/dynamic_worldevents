@@ -66,6 +66,5 @@ exports {
 
 dependencies {
     'ultimate_bridge',
-    'PolyZone',
     'oxmysql'
 }

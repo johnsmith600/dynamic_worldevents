@@ -23,7 +23,6 @@
 1. Clone or download this repository.
 2. Ensure you have the following dependencies installed:
    - [Ultimate Bridge](https://github.com/johnsmith600/ultimate_bridge)
-   - [PolyZone](https://github.com/mkafrin/PolyZone)
    - [oxmysql](https://github.com/overextended/oxmysql)
 3. Import `database/schema.sql` into your database.
 4. Add `ensure dynamic_world` to your `server.cfg` after its dependencies.
