@@ -31,9 +31,7 @@ end
 -- Example of adding a zone
 function PolyZoneManager.AddZone(name, type, points, options)
     local zone = nil
-    if exports['PolyZone'] then
-        zone = exports['PolyZone']:Create(points, options)
-    elseif PolyZone then
+    if PolyZone then
         zone = PolyZone:Create(points, options)
     end
 
