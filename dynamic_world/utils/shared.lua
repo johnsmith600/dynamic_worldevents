@@ -3,7 +3,18 @@ Utils = {}
 
 ---@param message string
 ---@param type string?
-function Utils.Notify(message, type)
+---@param title string?
+function Utils.Notify(message, type, title)
+    if not IsDuplicityVersion() then
+        if GetResourceState('17mov_Phone') == 'started' then
+            exports["17mov_Phone"]:CreateNotification({
+                app = "MESSAGES",
+                title = title or "World Event",
+                message = message
+            })
+            return
+        end
+    end
     Bridge.Notify(message, type or 'inform')
 end
 

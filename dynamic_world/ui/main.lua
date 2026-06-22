@@ -2,7 +2,7 @@
 UI = {}
 
 function UI.ShowEventNotification(event)
-    Utils.Notify("New World Event: " .. event.type, "inform")
+    Utils.Notify("New World Event: " .. event.type, "inform", "Dynamic World")
 end
 
 RegisterNetEvent('DynamicWorld:EventStarted', function(event)
