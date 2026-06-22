@@ -30,11 +30,20 @@ end
 
 -- Example of adding a zone
 function PolyZoneManager.AddZone(name, type, points, options)
-    PolyZoneManager.Zones[#PolyZoneManager.Zones+1] = {
-        name = name,
-        type = type,
+    local zone = nil
+    if exports['PolyZone'] then
+        zone = exports['PolyZone']:Create(points, options)
+    elseif PolyZone then
         zone = PolyZone:Create(points, options)
-    }
+    end
+
+    if zone then
+        PolyZoneManager.Zones[#PolyZoneManager.Zones+1] = {
+            name = name,
+            type = type,
+            zone = zone
+        }
+    end
 end
 
 AddEventHandler('onResourceStart', function(resourceName)
