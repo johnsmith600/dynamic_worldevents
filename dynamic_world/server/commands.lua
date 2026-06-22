@@ -1,5 +1,6 @@
 -- Admin Commands
 RegisterCommand('startevent', function(source, args)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then
         Bridge.Notify(source, Locales[Config.Locale]['no_permission'], "error")
         return
@@ -10,6 +11,8 @@ RegisterCommand('startevent', function(source, args)
         local id = Scheduler.CreateEvent(type)
         if id then
             Bridge.Notify(source, "Event started: " .. id, "success")
+        else
+            Bridge.Notify(source, "Failed to start event. Check console.", "error")
         end
     else
         Bridge.Notify(source, "Usage: /startevent [type]", "error")
@@ -17,6 +20,7 @@ RegisterCommand('startevent', function(source, args)
 end)
 
 RegisterCommand('stopevent', function(source, args)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
     local id = args[1]
     if StopEvent(id) then
@@ -25,6 +29,7 @@ RegisterCommand('stopevent', function(source, args)
 end)
 
 RegisterCommand('eventlist', function(source)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
     local events = GetEvents()
     print("^2--- Active Events ---^7")
@@ -34,12 +39,14 @@ RegisterCommand('eventlist', function(source)
 end)
 
 RegisterCommand('eventdebug', function(source)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
     Config.Debug = not Config.Debug
     Bridge.Notify(source, "Debug mode: " .. (Config.Debug and "ON" or "OFF"), "inform")
 end)
 
 RegisterCommand('eventtp', function(source, args)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
     local id = args[1]
     local event = GetEvent(id)
@@ -52,7 +59,7 @@ RegisterCommand('eventtp', function(source, args)
 end)
 
 RegisterCommand('reloadevents', function(source)
+    if not Bridge or not Scheduler then return end
     if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
-    -- In a real scenario, this would reload event definition files
     Bridge.Notify(source, "Events reloaded (dummy)", "success")
 end)

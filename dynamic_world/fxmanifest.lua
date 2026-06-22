@@ -9,7 +9,6 @@ lua54 'yes'
 
 -- Ultimate Bridge Integration
 shared_script '@ultimate_bridge/lib/bridge.lua'
-shared_script '@oxmysql/lib/MySQL.lua'
 
 shared_scripts {
     'config/config.lua',
