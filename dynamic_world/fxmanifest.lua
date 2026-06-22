@@ -10,10 +10,6 @@ lua54 'yes'
 -- Ultimate Bridge Integration
 shared_script '@ultimate_bridge/lib/bridge.lua'
 shared_script '@oxmysql/lib/MySQL.lua'
-shared_script '@PolyZone/PolyZone.lua'
-shared_script '@PolyZone/CircleZone.lua'
-shared_script '@PolyZone/BoxZone.lua'
-shared_script '@PolyZone/EntityZone.lua'
 
 shared_scripts {
     'config/config.lua',
