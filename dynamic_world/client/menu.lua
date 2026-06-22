@@ -1,31 +1,33 @@
 -- Client Side Admin Menu
 RegisterNetEvent('DynamicWorld:Client:OpenAdminMenu', function()
-    Bridge.TriggerCallback('DynamicWorld:GetAdminData', function(data)
-        local menuOptions = {
-            {
-                header = "Dynamic World Admin Menu",
-                isMenuHeader = true
-            },
-            {
-                header = "Active Events",
-                txt = "View and manage current events",
-                params = {
-                    event = "DynamicWorld:Client:OpenActiveEventsMenu",
-                    args = data.active
-                }
-            },
-            {
-                header = "Start New Event",
-                txt = "Manually trigger a world event",
-                params = {
-                    event = "DynamicWorld:Client:OpenStartEventsMenu",
-                    args = data.types
-                }
+    TriggerServerEvent('DynamicWorld:Server:RequestAdminData')
+end)
+
+RegisterNetEvent('DynamicWorld:Client:ReceiveAdminData', function(data)
+    local menuOptions = {
+        {
+            header = "Dynamic World Admin Menu",
+            isMenuHeader = true
+        },
+        {
+            header = "Active Events",
+            txt = "View and manage current events",
+            params = {
+                event = "DynamicWorld:Client:OpenActiveEventsMenu",
+                args = data.active
+            }
+        },
+        {
+            header = "Start New Event",
+            txt = "Manually trigger a world event",
+            params = {
+                event = "DynamicWorld:Client:OpenStartEventsMenu",
+                args = data.types
             }
         }
+    }
 
-        Bridge.OpenMenu(menuOptions)
-    end)
+    Bridge.OpenMenu(menuOptions)
 end)
 
 RegisterNetEvent('DynamicWorld:Client:OpenActiveEventsMenu', function(active)

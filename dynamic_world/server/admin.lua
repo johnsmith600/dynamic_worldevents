@@ -1,5 +1,8 @@
--- Server side callbacks and menu data
-Bridge.RegisterCallback('DynamicWorld:GetAdminData', function(source)
+-- Server side data for menu
+RegisterNetEvent('DynamicWorld:Server:RequestAdminData', function()
+    local src = source
+    if not Bridge.HasPermission(src, 'admin') then return end
+
     local eventTypes = {}
     for name, config in pairs(Scheduler.EventTypes) do
         table.insert(eventTypes, {
@@ -19,10 +22,10 @@ Bridge.RegisterCallback('DynamicWorld:GetAdminData', function(source)
         })
     end
 
-    return {
+    TriggerClientEvent('DynamicWorld:Client:ReceiveAdminData', src, {
         types = eventTypes,
         active = activeEvents
-    }
+    })
 end)
 
 RegisterCommand('eventmenu', function(source)
