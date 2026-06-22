@@ -20,6 +20,7 @@ shared_scripts {
 client_scripts {
     'client/sync.lua',
     'client/ai.lua',
+    'client/menu.lua',
     'client/main.lua',
     'client/economy.lua',
     'ui/main.lua',
@@ -34,6 +35,7 @@ server_scripts {
     'server/polyzone.lua',
     'server/dispatch.lua',
     'server/commands.lua',
+    'server/admin.lua',
     'server/main.lua'
 }
 
