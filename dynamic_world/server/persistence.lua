@@ -1,11 +1,19 @@
 Persistence = {}
 
 local function prepare(query, params)
-    return exports.oxmysql:prepare_await(query, params)
+    local p = promise.new()
+    exports.oxmysql:prepare(query, params, function(result)
+        p:resolve(result)
+    end)
+    return Citizen.Await(p)
 end
 
 local function query(query, params)
-    return exports.oxmysql:query_await(query, params)
+    local p = promise.new()
+    exports.oxmysql:query(query, params, function(result)
+        p:resolve(result)
+    end)
+    return Citizen.Await(p)
 end
 
 ---@param event table
