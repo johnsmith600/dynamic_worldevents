@@ -20,6 +20,7 @@ shared_scripts {
 client_scripts {
     'client/sync.lua',
     'client/ai.lua',
+    'client/ui_wrapper.lua',
     'client/menu.lua',
     'client/main.lua',
     'client/economy.lua',

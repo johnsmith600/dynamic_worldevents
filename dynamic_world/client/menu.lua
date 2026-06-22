@@ -27,11 +27,15 @@ RegisterNetEvent('DynamicWorld:Client:ReceiveAdminData', function(data)
         }
     }
 
-    Bridge.OpenMenu(menuOptions)
+    UIWrapper.OpenMenu(menuOptions)
 end)
 
 RegisterNetEvent('DynamicWorld:Client:OpenActiveEventsMenu', function(active)
     local options = {
+        {
+            header = "Dynamic World Admin Menu",
+            isMenuHeader = true
+        },
         {
             header = "< Back",
             params = {
@@ -51,11 +55,15 @@ RegisterNetEvent('DynamicWorld:Client:OpenActiveEventsMenu', function(active)
         })
     end
 
-    Bridge.OpenMenu(options)
+    UIWrapper.OpenMenu(options)
 end)
 
 RegisterNetEvent('DynamicWorld:Client:EventManageMenu', function(event)
     local options = {
+        {
+            header = "Event: " .. event.type,
+            isMenuHeader = true
+        },
         {
             header = "< Back",
             params = {
@@ -80,11 +88,15 @@ RegisterNetEvent('DynamicWorld:Client:EventManageMenu', function(event)
         }
     }
 
-    Bridge.OpenMenu(options)
+    UIWrapper.OpenMenu(options)
 end)
 
 RegisterNetEvent('DynamicWorld:Client:OpenStartEventsMenu', function(types)
     local options = {
+        {
+            header = "Trigger New Event",
+            isMenuHeader = true
+        },
         {
             header = "< Back",
             params = {
@@ -105,5 +117,5 @@ RegisterNetEvent('DynamicWorld:Client:OpenStartEventsMenu', function(types)
         })
     end
 
-    Bridge.OpenMenu(options)
+    UIWrapper.OpenMenu(options)
 end)
