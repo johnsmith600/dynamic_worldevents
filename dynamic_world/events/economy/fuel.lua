@@ -6,6 +6,6 @@ RegisterEvent({
     duration = 3600,
     start = function(event)
         WorldState.HandleFuelShortage()
-        Bridge.Notify("City-wide fuel shortage reported! Prices are rising.", "error")
+        Utils.Notify("City-wide fuel shortage reported! Prices are rising.", "error")
     end
 })

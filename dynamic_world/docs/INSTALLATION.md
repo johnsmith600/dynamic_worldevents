@@ -1,14 +1,14 @@
-# Dynamic World Installation Guide
+# Dynamic World Installation Guide (Qbox)
 
 ## Dependencies
-- Ultimate Bridge (Required)
-- PolyZone (Required)
-- A supported database (oxmysql recommended)
+- qbx_core (Required)
+- ox_lib (Required)
+- oxmysql (Required)
 
 ## Installation
 1. Download `dynamic_world`.
 2. Import `database/schema.sql` into your database.
-3. Add `ensure dynamic_world` to your `server.cfg` after `ultimate_bridge` and `PolyZone`.
+3. Add `ensure dynamic_world` to your `server.cfg` after `qbx_core` and `ox_lib`.
 4. Configure `config/config.lua` to your liking.
 
 ## API Usage

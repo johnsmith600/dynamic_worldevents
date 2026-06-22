@@ -1,6 +1,6 @@
-# Dynamic World Events
+# Dynamic World Events (Qbox)
 
-**Dynamic World** is a production-quality FiveM resource that generates immersive, dynamic server events autonomously. Built exclusively around the **Ultimate Bridge**, it is fully compatible with ESX Legacy, QBCore (v1.3+), Qbox, and Standalone.
+**Dynamic World** is a production-quality FiveM resource that generates immersive, dynamic server events autonomously. This version is designed for **Qbox** and utilizes **ox_lib** for UI/UX.
 
 ## Features
 
@@ -14,15 +14,16 @@
   - **Traffic:** Multi-vehicle pileups, roadworks.
   - **Weather:** Heatwaves, storm effects.
   - **Economy:** Fuel shortages, inflation (impacts NPC behavior and prices).
-- **Framework Agnostic:** Zero direct dependencies on ESX/QB; all interactions use Ultimate Bridge.
-- **PolyZone Integration:** Whitelist or blacklist specific areas of the map for events.
-- **Admin Tools:** Commands for starting, stopping, and debugging events in real-time.
+- **Qbox Integration:** Native support for Qbox permissions, jobs, and player data.
+- **Built-in PolyZone:** Internal logic for blacklist/whitelist zones without external dependencies.
+- **Admin Menu:** A robust context menu (powered by ox_lib) for managing events.
 
 ## Installation
 
 1. Clone or download this repository.
 2. Ensure you have the following dependencies installed:
-   - [Ultimate Bridge](https://github.com/johnsmith600/ultimate_bridge)
+   - [qbx_core](https://github.com/Qbox-project/qbx_core)
+   - [ox_lib](https://github.com/overextended/ox_lib)
    - [oxmysql](https://github.com/overextended/oxmysql)
 3. Import `database/schema.sql` into your database.
 4. Add `ensure dynamic_world` to your `server.cfg` after its dependencies.
@@ -42,22 +43,12 @@ exports.dynamic_world:CompleteEvent(id)
 exports.dynamic_world:FailEvent(id)
 ```
 
-### Events
-```lua
-AddEventHandler('DynamicWorld:EventStarted', function(event) ... end)
-AddEventHandler('DynamicWorld:EventUpdated', function(event) ... end)
-AddEventHandler('DynamicWorld:EventFinished', function(event) ... end)
-AddEventHandler('DynamicWorld:EventFailed', function(event) ... end)
-```
+## Admin Tools
 
-## Admin Commands
-
+- `/eventmenu` - Open the admin management menu (Context Menu).
 - `/startevent [type]` - Force start a specific event.
 - `/stopevent [id]` - Stop an active event.
-- `/eventlist` - List all currently active events.
-- `/eventtp [id]` - Teleport to an active event.
-- `/eventdebug` - Toggle debug logs.
-- `/reloadevents` - Reload event definitions.
+- `/eventlist` - List active events in console.
 
 ## License
 

@@ -1,7 +1,7 @@
 -- Server side data for menu
 RegisterNetEvent('DynamicWorld:Server:RequestAdminData', function()
     local src = source
-    if not Bridge.HasPermission(src, 'admin') then return end
+    if not Utils.HasPermission(src, 'admin') then return end
 
     local eventTypes = {}
     for name, config in pairs(Scheduler.EventTypes) do
@@ -29,20 +29,20 @@ RegisterNetEvent('DynamicWorld:Server:RequestAdminData', function()
 end)
 
 RegisterCommand('eventmenu', function(source)
-    if source ~= 0 and not Bridge.HasPermission(source, 'admin') then return end
+    if source ~= 0 and not Utils.HasPermission(source, 'admin') then return end
     TriggerClientEvent('DynamicWorld:Client:OpenAdminMenu', source)
 end)
 
 RegisterNetEvent('DynamicWorld:Server:AdminAction', function(data)
     local src = source
-    if not Bridge.HasPermission(src, 'admin') then return end
+    if not Utils.HasPermission(src, 'admin') then return end
 
     if data.action == "start" then
         Scheduler.CreateEvent(data.type)
-        Bridge.Notify(src, "Started event: " .. data.type, "success")
+        Utils.Notify(src, "Started event: " .. data.type, "success")
     elseif data.action == "stop" then
         StopEvent(data.id)
-        Bridge.Notify(src, "Stopped event: " .. data.id, "success")
+        Utils.Notify(src, "Stopped event: " .. data.id, "success")
     elseif data.action == "tp" then
         local event = GetEvent(data.id)
         if event then

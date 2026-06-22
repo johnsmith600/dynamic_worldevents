@@ -1,16 +1,14 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'Dynamic World Events for FiveM'
+description 'Dynamic World Events for FiveM (Qbox)'
 version '1.0.0'
 author 'Jules'
 
 lua54 'yes'
 
--- Ultimate Bridge Integration
-shared_script '@ultimate_bridge/lib/bridge.lua'
-
 shared_scripts {
+    '@ox_lib/init.lua',
     'config/config.lua',
     'shared/*.lua',
     'utils/shared.lua',
@@ -41,7 +39,6 @@ server_scripts {
 }
 
 -- Modular Events
--- Server side logic
 server_scripts {
     'events/emergency/*.lua',
     'events/criminal/*.lua',
@@ -50,9 +47,6 @@ server_scripts {
     'events/weather/*.lua',
     'events/economy/*.lua'
 }
-
--- Client side logic (if any specific ones exist, but usually they register via events)
--- For now, keep them server-side as they mainly register event definitions
 
 -- Exports
 exports {
@@ -67,6 +61,7 @@ exports {
 }
 
 dependencies {
-    'ultimate_bridge',
+    'qbx_core',
+    'ox_lib',
     'oxmysql'
 }

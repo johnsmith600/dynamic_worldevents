@@ -4,9 +4,9 @@ RegisterNetEvent('DynamicWorld:Server:Dispatch', function(coords, title, job, me
     local dispatchType = Config.Dispatch.Default
 
     if dispatchType == 'bridge' then
-        local players = Bridge.GetPlayersByJob(job)
+        local players = Utils.GetPlayersByJob(job)
         for _, playerId in ipairs(players) do
-            Bridge.Notify(playerId, ("[%s] %s: %s"):format(title, job:upper(), message), "inform")
+            Utils.NotifyPlayer(playerId, ("[%s] %s: %s"):format(title, job:upper(), message), "inform")
         end
     elseif dispatchType == 'ps-dispatch' then
         exports['ps-dispatch']:CustomAlert({

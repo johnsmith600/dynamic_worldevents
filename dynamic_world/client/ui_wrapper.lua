@@ -35,7 +35,7 @@ function UIWrapper.OpenMenu(options)
     end
 
     -- Fallback to bridge
-    if Bridge and Bridge.OpenMenu then
-        Bridge.OpenMenu(options)
+    if true and UIWrapper.OpenMenu then
+        UIWrapper.OpenMenu(options)
     end
 end

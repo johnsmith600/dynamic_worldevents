@@ -18,6 +18,6 @@ RegisterEvent({
             temp = 40,
             fireChance = 0.05
         })
-        Bridge.Notify("A severe heatwave is hitting the state! Stay hydrated.", "inform")
+        Utils.Notify("A severe heatwave is hitting the state! Stay hydrated.", "inform")
     end
 })
